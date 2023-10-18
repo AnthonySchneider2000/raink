@@ -8,7 +8,7 @@ import { MdBrightness3 as DarkMode, MdBrightnessHigh as LightMode} from 'react-i
 
 
 export default function Home() {
-  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(true)
   const items = [
     {
       name: 'Item 1',
@@ -30,10 +30,7 @@ export default function Home() {
     setIsDarkMode(!isDarkMode)
   }
 
-  useEffect(() => {
-    document.documentElement.classList.add('dark')
-    setIsDarkMode(true)
-  }, [])
+
 
 
   return (
