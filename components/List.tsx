@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const Item = ({ item }: any) => {
   return (
-    <Card>
+    <Card className="m-2">
       <CardHeader>{item.name}</CardHeader>
     </Card>
   );
@@ -24,7 +24,7 @@ export default function List({ items }: any) {
     setCurrentItems(newItems);
   };
   return (
-    <Card className="p-2">
+    <Card className="">
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId="list" direction="vertical">
           {(provided) => (
