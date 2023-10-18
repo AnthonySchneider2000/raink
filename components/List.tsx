@@ -1,7 +1,8 @@
 "use client"
 
-import { Droppable, Draggable, DragDropContext } from 'react-beautiful-dnd';
-import { StrictModeDroppable } from './StrictModeDroppable';
+import { Draggable, DragDropContext } from 'react-beautiful-dnd';
+import { StrictModeDroppable as Droppable } from './StrictModeDroppable';
+import { useState } from 'react';
 
 const Item = ({item}: any) => {
     return(
@@ -12,17 +13,23 @@ const Item = ({item}: any) => {
 }
 
 export default function List( {items}: any ) {
+    const [currentItems, setCurrentItems] = useState(items)
     const onDragEnd = (result: any) => {
-        console.log(result)
+        if(!result.destination) return;
+        const { source, destination } = result;
+        const newItems = Array.from(currentItems);
+        const [reorderedItem] = newItems.splice(source.index, 1);
+        newItems.splice(destination.index, 0, reorderedItem);
+        setCurrentItems(newItems);
     }
     return(
         <div className="border p-2 border-border">
 
         <DragDropContext onDragEnd={onDragEnd}>
-            <StrictModeDroppable droppableId="list" direction='vertical' >
+            <Droppable droppableId="list" direction='vertical' >
                 {(provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps}>
-                        {items.map((item: any, index: any) => (
+                        {currentItems.map((item: any, index: any) => (
                             <Draggable key={item.id} draggableId={item.id} index={index}>
                                 {(provided) => (
                                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
@@ -34,7 +41,7 @@ export default function List( {items}: any ) {
                         {provided.placeholder}
                     </div>
                 )}
-            </StrictModeDroppable>
+            </Droppable>
         </DragDropContext>
         </div>
     )
