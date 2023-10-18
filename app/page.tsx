@@ -2,8 +2,8 @@
 
 import List from '@/components/List'
 import { Button } from '@/components/ui/button'
-import { set } from 'mongoose'
 import { useEffect, useState } from 'react'
+import { MdBrightness3 as DarkMode, MdBrightnessHigh as LightMode} from 'react-icons/md'
 
 
 
@@ -38,10 +38,12 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Button
+      <div
         onClick={toggleDarkMode}
         className="absolute top-0 right-0 m-4"
-      >Theme</Button>
+      >
+        {isDarkMode ? <LightMode size="2rem" /> : <DarkMode size="2rem" />}
+      </div>
       <List items={items} />
     </main>
   )
