@@ -1,5 +1,3 @@
-"use client"
-
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -18,19 +16,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const toggleDarkMode = () => {
-    document.documentElement.classList.toggle("dark");
-    console.log(document);
-    setIsDarkMode(!isDarkMode);
-  };
+  const mode: string = "dark";
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={mode}>
       <body className={inter.className}>
-      <div onClick={toggleDarkMode} className="absolute top-0 right-0 m-4">
-        {isDarkMode ? <LightMode size="2rem" /> : <DarkMode size="2rem" />}
-      </div>
+      <ThemeToggle currentTheme={mode} />
         {children}
       </body>
     </html>
