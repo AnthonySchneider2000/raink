@@ -6,6 +6,14 @@ const listSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  private: {
+    type: Boolean,
+    default: false,
+  },
   description: String,
   image: String,
   firstItem: {

@@ -6,6 +6,10 @@ const itemSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  list: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "List",
+  },
   description: String,
   image: String,
   nextItem: {

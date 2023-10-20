@@ -19,6 +19,17 @@ const userSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
+  darkMode: {
+    type: Boolean,
+    default: true,
+  },
+  lists: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "List",
+    },
+  ],
+  // probably change this to settings
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);
