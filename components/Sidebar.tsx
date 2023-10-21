@@ -14,6 +14,16 @@ import {
 } from "@/components/ui/sheet";
 import { AiOutlineMenu } from "react-icons/ai";
 
+function Link({ children, href }: any) {
+  return (
+    <a href={href} className="w-full">
+      <Button variant="ghost" className="justify-start w-full max-sm:p-0" size="lg">
+        {children}
+      </Button>
+    </a>
+  );
+}
+
 export default function Sidebar() {
   return (
     <Sheet>
@@ -27,17 +37,11 @@ export default function Sidebar() {
           <SheetTitle>Links</SheetTitle>
         </SheetHeader>
         <div className="grid gap-4 py-4">
-          {/* list of styled links */}
-          <a href="/" className="w-full">
-            <Button variant="ghost" className="justify-start w-full" size="lg">
-              Home
-            </Button>
-          </a>
-          <a href="/dashboard">
-            <Button variant="ghost" className="justify-start w-full" size="lg">
-              Dashboard
-            </Button>
-          </a>
+            <Link href="/">Home</Link>
+            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/login">Login</Link>
+            <Link href="/register">Register</Link>
+            <Link href="/logout">Logout</Link>
         </div>
       </SheetContent>
     </Sheet>
