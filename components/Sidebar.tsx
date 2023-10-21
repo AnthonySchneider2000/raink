@@ -41,7 +41,7 @@ export default function Sidebar() {
             <Link href="/dashboard">Dashboard</Link>
             <Link href="/login">Login</Link>
             <Link href="/register">Register</Link>
-            <Link href="/logout">Logout</Link>
+            <Link href="/">Logout</Link>
         </div>
       </SheetContent>
     </Sheet>
