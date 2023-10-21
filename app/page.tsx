@@ -1,6 +1,6 @@
-import List from '@/components/List'
-import { Button } from '@/components/ui/button'
-
+import List from "@/components/List";
+import { Button } from "@/components/ui/button";
+import "./rain.css"
 
 import type { Metadata } from "next";
 export const metadata: Metadata = {
@@ -11,26 +11,27 @@ export const metadata: Metadata = {
 export default function Home() {
   const items = [
     {
-      name: 'Item 1',
+      name: "Item 1",
       id: "1",
     },
     {
-      name: 'Item 2',
+      name: "Item 2",
       id: "2",
     },
     {
-      name: 'Item 3',
+      name: "Item 3",
       id: "3",
     },
-  ]
-  
-
-
+  ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between py-24">
-
+    <main className="flex min-h-screen flex-col items-center justify-between py-24 rain-container">
+        {Array(100) // You can change the number of raindrops by adjusting this value
+          .fill(null)
+          .map((_, index) => (
+            <div key={index} className="raindrop" />
+          ))}
       <List items={items} />
     </main>
-  )
+  );
 }
