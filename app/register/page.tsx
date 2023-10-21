@@ -19,9 +19,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
-  username: z.string().min(3).max(255),
+  username: z.string().max(255),
   email: z.string().email(),
   password: z.string().min(8),
   confirmpassword: z.string().min(8),
@@ -37,8 +38,8 @@ export default function Register() {
       confirmpassword: "",
     },
   });
+  const { toast } = useToast();
 
-  const [password, setPassword] = useState("");
   const [score, setScore] = useState(0);
 
   function onSubmit(data: z.infer<typeof formSchema>) {
@@ -52,30 +53,12 @@ export default function Register() {
       form.setError("password", {
         message: "Password must be stronger",
       });
-    }
-    //if the password does not contain a lowercase letter, show an error
-    else if (!data.password.match(/[a-z]/)) {
-      form.setError("password", {
-        message: "Password must contain a lowercase letter",
+    } else {
+      toast({
+        title: "Success",
+        description: "You have successfully registered",
       });
-    }
-    //if the password does not contain an uppercase letter, show an error
-    else if (!data.password.match(/[A-Z]/)) {
-      form.setError("password", {
-        message: "Password must contain an uppercase letter",
-      });
-    }
-    //if the password does not contain a number, show an error
-    else if (!data.password.match(/[0-9]/)) {
-      form.setError("password", {
-        message: "Password must contain a number",
-      });
-    }
-    //if the password does not contain a special character, show an error
-    else if (!data.password.match(/[!@#$%^&*]/)) {
-      form.setError("password", {
-        message: "Password must contain a special character",
-      });
+      console.log("success");
     }
     //if the password contains a character not included in the above, show an error
   }
@@ -87,7 +70,6 @@ export default function Register() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            onChange={() => setPassword(form.getValues("password"))}
             className="flex flex-col"
           >
             <FormField
@@ -127,7 +109,7 @@ export default function Register() {
                   </FormControl>
                   <FormMessage />
                   <PasswordStrengthBar
-                    password={password}
+                    password={form.getValues("password")}
                     onChangeScore={(score) => setScore(score)}
                   />
                 </FormItem>
