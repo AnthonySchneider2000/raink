@@ -17,7 +17,7 @@ import {
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import PasswordStrengthBar from 'react-password-strength-bar';
+import PasswordStrengthBar from "react-password-strength-bar";
 import { useState } from "react";
 
 const formSchema = z.object({
@@ -47,6 +47,10 @@ export default function Register() {
     if (data.password !== data.confirmpassword) {
       form.setError("confirmpassword", {
         message: "Passwords do not match",
+      });
+    } else if (score < 3) {
+      form.setError("password", {
+        message: "Password must be stronger",
       });
     }
     //if the password does not contain a lowercase letter, show an error
@@ -81,7 +85,11 @@ export default function Register() {
       <Card className="w-full flex flex-col gap-4 p-4">
         <CardHeader className="max-sm:p-0 sm:text-3xl">Register</CardHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            onChange={() => setPassword(form.getValues("password"))}
+            className="flex flex-col"
+          >
             <FormField
               control={form.control}
               name="username"
@@ -115,10 +123,13 @@ export default function Register() {
                 <FormItem className="mb-4">
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Password" type="password" {...field} value={password} onChange={e => setPassword(e.target.value)} />
+                    <Input placeholder="Password" type="password" {...field} />
                   </FormControl>
                   <FormMessage />
-                  <PasswordStrengthBar password={password} onChangeScore={score => setScore(score)} />
+                  <PasswordStrengthBar
+                    password={password}
+                    onChangeScore={(score) => setScore(score)}
+                  />
                 </FormItem>
               )}
             />
