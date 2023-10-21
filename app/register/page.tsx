@@ -1,31 +1,149 @@
+"use client";
+
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import PasswordStrengthBar from 'react-password-strength-bar';
+import { useState } from "react";
+
+const formSchema = z.object({
+  username: z.string().min(3).max(255),
+  email: z.string().email(),
+  password: z.string().min(8),
+  confirmpassword: z.string().min(8),
+});
 
 export default function Register() {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmpassword: "",
+    },
+  });
+
+  const [password, setPassword] = useState("");
+  const [score, setScore] = useState(0);
+
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log(data);
+    // if the password and confirm password don't match, show an error
+    if (data.password !== data.confirmpassword) {
+      form.setError("confirmpassword", {
+        message: "Passwords do not match",
+      });
+    }
+    //if the password does not contain a lowercase letter, show an error
+    else if (!data.password.match(/[a-z]/)) {
+      form.setError("password", {
+        message: "Password must contain a lowercase letter",
+      });
+    }
+    //if the password does not contain an uppercase letter, show an error
+    else if (!data.password.match(/[A-Z]/)) {
+      form.setError("password", {
+        message: "Password must contain an uppercase letter",
+      });
+    }
+    //if the password does not contain a number, show an error
+    else if (!data.password.match(/[0-9]/)) {
+      form.setError("password", {
+        message: "Password must contain a number",
+      });
+    }
+    //if the password does not contain a special character, show an error
+    else if (!data.password.match(/[!@#$%^&*]/)) {
+      form.setError("password", {
+        message: "Password must contain a special character",
+      });
+    }
+    //if the password contains a character not included in the above, show an error
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between py-24 px-16">
       <Card className="w-full flex flex-col gap-4 p-4">
         <CardHeader className="max-sm:p-0 sm:text-3xl">Register</CardHeader>
-        <div>
-          <Label htmlFor="name">Name</Label>
-          <Input id="name" type="text" />
-        </div>
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" />
-        </div>
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" />
-        </div>
-        <div>
-          <Label htmlFor="password">Confirm Password</Label>
-          <Input id="confirmpassword" type="password" />
-        </div>
-        <Button className="w-40 max-sm:w-20 self-center mt-4">Register</Button>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem className="mb-8">
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Username" type="text" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="mb-8">
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Email" type="email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem className="mb-4">
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Password" type="password" {...field} value={password} onChange={e => setPassword(e.target.value)} />
+                  </FormControl>
+                  <FormMessage />
+                  <PasswordStrengthBar password={password} onChangeScore={score => setScore(score)} />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirmpassword"
+              render={({ field }) => (
+                <FormItem className="mb-4">
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Confirm Password"
+                      type="password"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button className="w-40 max-sm:w-20 mt-4 self-center">
+              Register
+            </Button>
+          </form>
+        </Form>
       </Card>
     </main>
   );
