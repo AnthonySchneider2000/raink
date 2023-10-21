@@ -18,24 +18,27 @@ export default function Sidebar() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-      <div className="absolute top-0 left-0 m-4 hover:scale-110 transition">
-        <AiOutlineMenu size="2rem" />
-      </div>
+        <div className="absolute top-0 left-0 m-4 hover:scale-110 transition">
+          <AiOutlineMenu size="2rem" />
+        </div>
       </SheetTrigger>
       <SheetContent side="left">
         <SheetHeader>
           <SheetTitle>Links</SheetTitle>
         </SheetHeader>
         <div className="grid gap-4 py-4">
-            {/* list of styled links */}
-            <Button variant="ghost" className="justify-start" size="lg">
-                <a href="/">Home</a>
+          {/* list of styled links */}
+          <a href="/" className="w-full">
+            <Button variant="ghost" className="justify-start w-full" size="lg">
+              Home
             </Button>
-            <Button variant="ghost" className="justify-start" size="lg">
-                <a href="/dashboard">Dashboard</a>
+          </a>
+          <a href="/dashboard">
+            <Button variant="ghost" className="justify-start w-full" size="lg">
+              Dashboard
             </Button>
+          </a>
         </div>
-        
       </SheetContent>
     </Sheet>
   );
