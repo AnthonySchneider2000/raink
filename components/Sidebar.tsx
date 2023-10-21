@@ -12,12 +12,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { AiOutlineMenu } from "react-icons/ai";
 
 export default function Sidebar() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
+      <div className="absolute top-0 left-0 m-4 hover:scale-110 transition">
+        <AiOutlineMenu size="2rem" />
+      </div>
       </SheetTrigger>
       <SheetContent side="left">
         <SheetHeader>
