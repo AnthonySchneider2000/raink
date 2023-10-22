@@ -10,6 +10,33 @@
     height: 10px;
     transform: translateY(90vh);
     opacity: 0.75;
+    background-color: rgb(100, 100, 255);
+  }
+  90.01% {
+    background-color: transparent;
+  }
+  100% {
+    /*splat  */
+    width: 15px;
+    height: 10px;
+    opacity: 0.75;
+    border-top: 2px dotted rgb(100, 100, 255);
+    border-radius: 50%;
+    background-color: transparent;
+    transform: translateY(90vh) scale(2);
+  }
+}
+
+@keyframes raindrop_dark {
+  0% {
+    transform: translateY(0vh);
+    opacity: 0.25;
+  }
+  90% {
+    width: 2px;
+    height: 10px;
+    transform: translateY(90vh);
+    opacity: 0.75;
     background-color: rgb(211, 201, 255);
   }
   90.01% {
@@ -20,7 +47,7 @@
     width: 15px;
     height: 10px;
     opacity: 0.75;
-    border-top: 2px dotted rgba(255, 255, 255, 0.5);
+    border-top: 2px dotted rgb(211, 201, 255);
     border-radius: 50%;
     background-color: transparent;
     transform: translateY(90vh) scale(2);
@@ -42,6 +69,7 @@
 
 html.dark .raindrop {
   background-color: rgb(211, 201, 255);
+  animation: raindrop_dark 1.5s linear infinite;
 }
 
 /* Create multiple raindrop elements */
@@ -91,6 +119,57 @@ html.dark .raindrop {
 }
 
 .raindrop:nth-child(10) {
+  left: 95%; /* Adjust the left position for the tenth raindrop */
+  animation-delay: 0.25s;
+}
+
+/* Create multiple raindrop elements */
+html.dark .raindrop:nth-child(1) {
+  left: 5%; /* Adjust the left position for the first raindrop */
+  animation-delay: 0s;
+}
+
+html.dark .raindrop:nth-child(2) {
+  left: 15%; /* Adjust the left position for the second raindrop */
+  animation-delay: 0.8s;
+}
+
+html.dark .raindrop:nth-child(3) {
+  left: 25%; /* Adjust the left position for the third raindrop */
+  animation-delay: 0.4s;
+}
+
+html.dark .raindrop:nth-child(4) {
+  left: 35%; /* Adjust the left position for the fourth raindrop */
+  animation-delay: 1.2s;
+}
+
+html.dark .raindrop:nth-child(5) {
+  left: 45%; /* Adjust the left position for the fifth raindrop */
+  animation-delay: 0.8s;
+}
+
+html.dark .raindrop:nth-child(6) {
+  left: 55%; /* Adjust the left position for the sixth raindrop */
+  animation-delay: 0.48s;
+}
+
+html.dark .raindrop:nth-child(7) {
+  left: 65%; /* Adjust the left position for the seventh raindrop */
+  animation-delay: 1.2s;
+}
+
+html.dark .raindrop:nth-child(8) {
+  left: 75%; /* Adjust the left position for the eighth raindrop */
+  animation-delay: 1s;
+}
+
+html.dark .raindrop:nth-child(9) {
+  left: 85%; /* Adjust the left position for the ninth raindrop */
+  animation-delay: 1.3s;
+}
+
+html.dark .raindrop:nth-child(10) {
   left: 95%; /* Adjust the left position for the tenth raindrop */
   animation-delay: 0.25s;
 }
