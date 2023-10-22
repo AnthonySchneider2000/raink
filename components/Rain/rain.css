@@ -6,7 +6,7 @@
   }
   100% {
     transform: translateY(100vh);
-    opacity: 1;
+    opacity: 0.7;
   }
 }
 
@@ -16,9 +16,15 @@
   height: 10px;
   background-color: rgb(100, 100, 255); /* Adjust the color as needed */
   position: absolute;
-  animation: raindrop 1.5s linear infinite; /* Adjust the animation duration as needed */
+  animation: raindrop 1.5s linear infinite;
   transform-origin: center;
   opacity: 0;
+  z-index: -1; /* Make sure the raindrops are behind the text */
+  left: -10px; /* the first raindrop had 100% opacity no matter what, so we're moving it offscreen. bad fix */
+}
+
+html.dark .raindrop {
+  background-color: rgb(211, 201, 255);
 }
 
 /* Create multiple raindrop elements */
