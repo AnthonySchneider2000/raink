@@ -1,12 +1,29 @@
 /* Keyframes for the raindrop animation */
+
 @keyframes raindrop {
   0% {
-    transform: translateY(-10px);
+    transform: translateY(0vh);
     opacity: 0.25;
   }
+  90% {
+    width: 2px;
+    height: 10px;
+    transform: translateY(90vh);
+    opacity: 0.75;
+    background-color: rgb(211, 201, 255);
+  }
+  90.01% {
+    background-color: transparent;
+  }
   100% {
-    transform: translateY(100vh);
-    opacity: 0.7;
+    /*splat  */
+    width: 15px;
+    height: 10px;
+    opacity: 0.75;
+    border-top: 2px dotted rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    background-color: transparent;
+    transform: translateY(90vh) scale(2);
   }
 }
 
@@ -58,12 +75,10 @@ html.dark .raindrop {
   animation-delay: 0.48s;
 }
 
-
 .raindrop:nth-child(7) {
   left: 65%; /* Adjust the left position for the seventh raindrop */
   animation-delay: 1.2s;
 }
-
 
 .raindrop:nth-child(8) {
   left: 75%; /* Adjust the left position for the eighth raindrop */
@@ -80,10 +95,7 @@ html.dark .raindrop {
   animation-delay: 0.25s;
 }
 
-
-
 /* Add more .raindrop classes and adjust the left position and animation delay for more raindrops */
-
 
 /* disable scrollbar */
 body::-webkit-scrollbar {
