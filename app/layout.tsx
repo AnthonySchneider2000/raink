@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 const inter = Inter({ subsets: ["latin"] });
 import Sidebar from "@/components/Sidebar";
 import { Toaster } from "@/components/ui/toaster";
+import Rain from "@/components/Rain/Rain";
 
 export default function RootLayout({
   children,
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={mode}>
       <body className={inter.className}>
+        <Rain />
         <Toaster />
         <Sidebar />
         <ThemeToggle currentTheme={mode} />
