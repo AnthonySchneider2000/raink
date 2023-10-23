@@ -3,9 +3,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import {
-  MdBrightness3 as DarkMode,
-  MdBrightnessHigh as LightMode,
-} from "react-icons/md";
+  BsMoonFill as DarkMode,
+  BsSunFill as LightMode,
+} from "react-icons/bs";
 
 interface ThemeToggleProps {
   currentTheme?: string;
