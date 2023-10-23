@@ -45,11 +45,12 @@ export default function Login() {
       });
 
       if (!response.ok) {
-        console.error(response);
-        throw new Error("Failed to log in");
+        const error = await response.text();
+        throw new Error(error);
       }
 
       console.log("response", response);
+      console.log("response", response.body);
       // if the response is ok, show a success message
       toast({
         title: "Success",
@@ -57,6 +58,7 @@ export default function Login() {
       });
     } catch (error: any) {
       // if there was an error, show an error message
+      console.log(error);
       toast({
         title: "Failed to log in",
         description: error.message,
