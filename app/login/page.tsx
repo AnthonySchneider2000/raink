@@ -17,6 +17,7 @@ import {
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -31,8 +32,37 @@ export default function Login() {
       password: "",
     },
   });
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+  const { toast } = useToast();
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log("form data", data);
+    try {
+      const response = await fetch("/api/Login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        console.error(response);
+        throw new Error("Failed to log in");
+      }
+
+      console.log("response", response);
+      // if the response is ok, show a success message
+      toast({
+        title: "Success",
+        description: "Successfully logged in",
+      });
+    } catch (error: any) {
+      // if there was an error, show an error message
+      toast({
+        title: "Failed to log in",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
   }
 
   return (
@@ -70,9 +100,9 @@ export default function Login() {
                 </FormItem>
               )}
             />
+            <Button className="w-40 max-sm:w-20 self-center mt-4">Login</Button>
           </form>
         </Form>
-        <Button className="w-40 max-sm:w-20 self-center mt-4">Login</Button>
       </Card>
     </main>
   );
