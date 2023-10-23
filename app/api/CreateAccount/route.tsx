@@ -25,7 +25,23 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error(error);
     if (error.code === 11000) {
-      return new Response("Email or username already exists", {
+      let emailExists: boolean = false;
+      let usernameExists: boolean = false;
+      if (error.keyPattern.email) {
+        emailExists = true;
+      }
+      if (error.keyPattern.username) {
+        usernameExists = true;
+      }
+      let message = "";
+      if (emailExists && usernameExists) {
+        message = "Email and username already exist";
+      } else if (emailExists) {
+        message = "Email already exists";
+      } else if (usernameExists) {
+        message = "Username already exists";
+      }
+      return new Response(message, {
         status: 400,
       });
     } else {
