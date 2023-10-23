@@ -55,8 +55,20 @@ export default function Login() {
         description: "Successfully logged in",
       });
     } catch (error: any) {
+      // if the error message contains "email", show an error on the email field
+      if (error.message.includes("email")) {
+        form.setError("email", {
+          message: error.message,
+        });
+      }
+      // if the error message contains "password", show an error on the password field
+      if (error.message.includes("password")) {
+        form.setError("password", {
+          message: error.message,
+        });
+      }
+
       // if there was an error, show an error message
-      console.log(error);
       toast({
         title: "Failed to log in",
         description: error.message,

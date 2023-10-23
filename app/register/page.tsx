@@ -72,6 +72,18 @@ export default function Register() {
           description: "Successfully created account",
         });
       } catch (error: any) {
+        // if the error message contains "username", show an error on the username field
+        if (error.message.includes("Username")) {
+          form.setError("username", {
+            message: error.message,
+          });
+        }
+        // if the error message contains "email", show an error on the email field
+        if (error.message.includes("Email")) {
+          form.setError("email", {
+            message: error.message,
+          });
+        }
         toast({
           title: "Failed to create account",
           description: error.message,
