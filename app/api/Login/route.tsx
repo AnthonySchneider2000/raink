@@ -24,8 +24,11 @@ export async function POST(req: Request) {
         status: 401,
       });
     }else{
-      return new Response("Successfully logged in", {
+      return new Response(JSON.stringify(user), {
         status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
     }
   } catch (error: any) {

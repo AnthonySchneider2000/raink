@@ -12,7 +12,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const loggedIn = cookies().has("loggedIn");
+  const loggedIn = cookies().has("userId");
   console.log("Is logged in: ", loggedIn);
   const mode: string = "dark";
   return (

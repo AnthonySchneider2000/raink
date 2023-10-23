@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { use } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,8 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
+import useUserStore from "@/lib/store/userStore";
+import { setUserId, setUsername, setDarkMode } from "@/lib/actions";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -54,6 +56,20 @@ export default function Login() {
         title: "Success",
         description: "Successfully logged in",
       });
+
+      // update store
+      const user = await response.json();
+      useUserStore.getState().setUserId(user._id);
+      useUserStore.getState().setUsername(user.username);
+      useUserStore.getState().setLoginState(true);
+      setUserId(user._id);
+      setUsername(user.username);
+      setDarkMode(user.darkMode);
+      
+      // make sure store was updated
+      console.log("user: " + useUserStore.getState().username +" user id " + useUserStore.getState().userId + " logged in " + useUserStore.getState().isLoggedIn);
+
+
     } catch (error: any) {
       // if the error message contains "email", show an error on the email field
       if (error.message.includes("email")) {
