@@ -49,8 +49,6 @@ export default function Login() {
         throw new Error(error);
       }
 
-      console.log("response", response);
-      console.log("response", response.body);
       // if the response is ok, show a success message
       toast({
         title: "Success",

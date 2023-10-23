@@ -62,21 +62,19 @@ export default function Register() {
           },
           body: JSON.stringify(data),
         });
-        if (response.ok) {
-          toast({
-            title: "Success",
-            description: "You have successfully registered",
-          });
-          console.log("response", response);
-        } else {
-          console.error("error", response);
-          throw new Error("Failed to create account");
+        if (!response.ok) {
+          const error = await response.text();
+          throw new Error(error);
         }
-      } catch (error) {
-        console.error("error", error);
+        // if the response is ok, show a success message
         toast({
-          title: "Error",
-          description: "Failed to create account",
+          title: "Success",
+          description: "Successfully created account",
+        });
+      } catch (error: any) {
+        toast({
+          title: "Failed to create account",
+          description: error.message,
           variant: "destructive",
         });
       }
