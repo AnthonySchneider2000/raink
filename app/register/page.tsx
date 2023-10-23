@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Input } from "@/components/ui/input";
@@ -42,8 +42,8 @@ export default function Register() {
 
   const [score, setScore] = useState(0);
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log("form data", data);
     // if the password and confirm password don't match, show an error
     if (data.password !== data.confirmpassword) {
       form.setError("confirmpassword", {
@@ -54,13 +54,33 @@ export default function Register() {
         message: "Password must be stronger",
       });
     } else {
-      toast({
-        title: "Success",
-        description: "You have successfully registered",
-      });
-      console.log("success");
+      try {
+        const response = await fetch("/api/CreateAccount", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          toast({
+            title: "Success",
+            description: "You have successfully registered",
+          });
+          console.log("response", response);
+        } else {
+          console.error("error", response);
+          throw new Error("Failed to create account");
+        }
+      } catch (error) {
+        console.error("error", error);
+        toast({
+          title: "Error",
+          description: "Failed to create account",
+          variant: "destructive",
+        });
+      }
     }
-    //if the password contains a character not included in the above, show an error
   }
 
   return (
