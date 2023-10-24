@@ -18,8 +18,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
-import useUserStore from "@/lib/store/userStore";
-import { setUserId, setUsername, setDarkMode } from "@/lib/actions";
+import { login } from "@/lib/login";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -59,15 +58,8 @@ export default function Login() {
 
       // update store
       const user = await response.json();
-      useUserStore.getState().setUserId(user._id);
-      useUserStore.getState().setUsername(user.username);
-      useUserStore.getState().setLoginState(true);
-      setUserId(user._id);
-      setUsername(user.username);
-      setDarkMode(user.darkMode);
+      login(user._id, user.username, user.darkMode);
       
-      // make sure store was updated
-      console.log("user: " + useUserStore.getState().username +" user id " + useUserStore.getState().userId + " logged in " + useUserStore.getState().isLoggedIn);
 
 
     } catch (error: any) {
