@@ -1,6 +1,6 @@
 export interface Item {
   name: string;
-  list: string;
+  list: List;
   description: string;
   image: string;
   link: string;
@@ -10,7 +10,7 @@ export interface Item {
 
 export interface List {
   name: string;
-  owner: string;
+  owner: User;
   private: boolean;
   description: string;
   image: string;
