@@ -19,6 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import { login } from "@/lib/login";
+import { User } from "@/lib/types/types";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -57,8 +58,8 @@ export default function Login() {
       });
 
       // update store
-      const user = await response.json();
-      login(user._id, user.username, user.darkMode);
+      const user: User = await response.json();
+      login(user);
       
 
 
