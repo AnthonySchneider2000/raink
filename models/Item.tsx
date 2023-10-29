@@ -12,6 +12,7 @@ const itemSchema = new mongoose.Schema({
   },
   description: String,
   image: String,
+  link: String,
   nextItem: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Item",
