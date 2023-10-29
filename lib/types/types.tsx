@@ -1,4 +1,5 @@
 export interface Item {
+  _id: string;
   name: string;
   list: List;
   description: string;
@@ -9,6 +10,7 @@ export interface Item {
 }
 
 export interface List {
+  _id: string;
   name: string;
   owner: User;
   private: boolean;
@@ -18,6 +20,7 @@ export interface List {
 }
 
 export interface User {
+  _id: string;
   username: string;
   email: string;
   password: string;
