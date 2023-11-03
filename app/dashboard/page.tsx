@@ -64,7 +64,7 @@ export default function Dashboard() {
       <Title />
       <Button onClick={handleButtonClick}>Show Form</Button>
       {showForm && (
-        <Card className="w-full flex flex-col gap-4 p-4">
+        <Card className="w-full flex flex-col gap-4 p-4 animate-in fade-in zoom-in-90 duration-1000">
           <CardHeader className="max-sm:p-0 sm:text-3xl">Login</CardHeader>
           <Form {...form}>
             <form
@@ -75,7 +75,10 @@ export default function Dashboard() {
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem
+                  className="animate-in fade-in zoom-in-90 duration-300"
+                  
+                  >
                     <FormLabel htmlFor={field.name}>*Name</FormLabel>
                     <FormControl>
                       <Input placeholder="List Name" type="text" {...field} />
@@ -88,7 +91,9 @@ export default function Dashboard() {
                 control={form.control}
                 name="description"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem
+                  className="animate-in fade-in zoom-in-90 duration-500"
+                  >
                     <FormLabel htmlFor={field.name}>Description</FormLabel>
                     <FormControl>
                       <Input placeholder="Description" type="text" {...field} />
@@ -101,7 +106,9 @@ export default function Dashboard() {
                 control={form.control}
                 name="image"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem
+                  className="animate-in fade-in zoom-in-90 duration-700"
+                  >
                     <FormLabel htmlFor={field.name}>Image</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter an Image URL" type="text" {...field} />
@@ -114,7 +121,7 @@ export default function Dashboard() {
                 control={form.control}
                 name="private"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 animate-in fade-in zoom-in-90 duration-1000">
                     <FormLabel htmlFor={field.name}>Private?</FormLabel>
                     <FormControl>
                       <Checkbox
